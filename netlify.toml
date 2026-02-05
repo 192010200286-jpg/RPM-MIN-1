@@ -1,0 +1,18 @@
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Mencegah error treat warnings as errors di CI/CD
+  CI = "false" 
+
+# Konfigurasi ini membuat tombol "Deploy to Netlify" otomatis meminta API Key
+[template.environment]
+  API_KEY = "Wajib diisi dengan Google Gemini API Key (Dapatkan di aistudio.google.com)"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

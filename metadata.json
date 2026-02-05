@@ -1,0 +1,11 @@
+{
+  "name": "Copy of Generator RPM MIN 1 Banyuwangi",
+  "description": "Aplikasi generator Perencanaan Pembelajaran Mendalam (RPM) otomatis berbasis AI untuk guru.",
+  "theme": "Primary",
+  "availableThemes": [
+    "Primary",
+    "Secondary",
+    "Monokrom"
+  ],
+  "requestFramePermissions": []
+}
