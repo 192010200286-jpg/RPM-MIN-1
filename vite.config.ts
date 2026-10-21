@@ -5,13 +5,22 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
-  const env = loadEnv(mode, (process as any).cwd(), '');
+  const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
+    server: {
+      port: 3000,
+      host: '0.0.0.0'
+    },
+    resolve: {
+      alias: {
+        '@': process.cwd()
+      }
+    },
     define: {
-      // Mengganti process.env.API_KEY dengan nilai string dari environment variables
-      // Jika env.API_KEY tidak ada, gunakan string kosong agar tidak error saat runtime (akan ditangani logic aplikasi)
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || '')
+      // Mengganti process.env.API_KEY dan GEMINI_API_KEY dengan nilai string dari environment variables
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.API_KEY || ''),
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || process.env.API_KEY || '')
     }
   };
 });

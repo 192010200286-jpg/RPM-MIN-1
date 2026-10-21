@@ -7,3 +7,5 @@ declare namespace NodeJS {
     [key: string]: string | undefined;
   }
 }
+
+declare module 'html2pdf.js';

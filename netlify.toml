@@ -7,6 +7,8 @@
   NODE_VERSION = "20"
   # Mencegah error treat warnings as errors di CI/CD
   CI = "false" 
+  # Memastikan instalasi paket tidak gagal karena konflik dependensi
+  NPM_FLAGS = "--legacy-peer-deps"
 
 # Konfigurasi ini membuat tombol "Deploy to Netlify" otomatis meminta API Key
 [template.environment]

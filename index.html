@@ -4,22 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="https://i.imghippo.com/files/nrnU9752iR.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generator RPM - MIN 1 Banyuwangi</title>
+    <title>RPM MIN 1 Banyuwangi</title>
+    <meta name="description" content="Aplikasi generator Perencanaan Pembelajaran Mendalam (RPM) otomatis berbasis AI untuk guru." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class', // Mengaktifkan mode gelap manual
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
-              primary: '#0f766e',
-              secondary: '#115e59',
-              accent: '#f0fdfa',
+              // Semantic Colors mapped to CSS Variables
+              primary: 'rgb(var(--color-primary) / <alpha-value>)',
+              'primary-hover': 'rgb(var(--color-primary-hover) / <alpha-value>)',
+              secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+              
+              // Section Colors (untuk Card 1, 2, 3 di Form)
+              'section-1': 'rgb(var(--color-section-1) / <alpha-value>)',
+              'section-2': 'rgb(var(--color-section-2) / <alpha-value>)',
+              'section-3': 'rgb(var(--color-section-3) / <alpha-value>)',
+
               dark: {
                 bg: '#0f172a',
                 card: '#1e293b',
                 input: '#334155',
-                text: '#f8fafc' // Mengubah text dasar menjadi sangat terang (Slate 50)
+                text: '#f8fafc'
               }
             },
             animation: {
@@ -43,15 +51,86 @@
       }
     </script>
     <style>
-      :root {
-        --color-primary: #0f766e;
-        --color-secondary: #115e59;
-        --color-accent: #f0fdfa;
-      }
+      /* --- THEME DEFINITIONS --- */
       
+      /* Base Variables (Default/Primary Theme - Nature/Teal) */
+      :root {
+        --color-primary: 13, 148, 136;       /* teal-600 */
+        --color-primary-hover: 15, 118, 110; /* teal-700 */
+        --color-secondary: 17, 94, 89;       /* teal-800 */
+        
+        /* Card Colors for Primary - Lebih Vibrant */
+        --color-section-1: 37, 99, 235;      /* blue-600 (Lebih tegas dari 500) */
+        --color-section-2: 5, 150, 105;      /* emerald-600 (Lebih tegas) */
+        --color-section-3: 124, 58, 237;     /* violet-600 (Lebih tegas) */
+      }
+
+      /* Secondary Theme (Professional Blue/Indigo) */
+      .theme-Secondary {
+        --color-primary: 79, 70, 229;        /* indigo-600 */
+        --color-primary-hover: 67, 56, 202;  /* indigo-700 */
+        --color-secondary: 49, 46, 129;      /* indigo-900 */
+        
+        /* Card Colors for Secondary */
+        --color-section-1: 2, 132, 199;      /* sky-600 */
+        --color-section-2: 79, 70, 229;      /* indigo-600 */
+        --color-section-3: 219, 39, 119;     /* pink-600 */
+      }
+
+      /* Monokrom Theme (Grayscale/Formal) */
+      .theme-Monokrom {
+        --color-primary: 31, 41, 55;         /* gray-800 */
+        --color-primary-hover: 0, 0, 0;      /* black */
+        --color-secondary: 75, 85, 99;       /* gray-600 */
+        
+        /* Card Colors for Monokrom - Shades of Gray */
+        --color-section-1: 75, 85, 99;       /* gray-600 */
+        --color-section-2: 55, 65, 81;       /* gray-700 */
+        --color-section-3: 31, 41, 55;       /* gray-800 */
+      }
+
+      /* --- GENERAL STYLES --- */
+
       @media print {
-        body { -webkit-print-color-adjust: exact; }
-        .no-print { display: none; }
+        body { 
+          -webkit-print-color-adjust: exact !important; 
+          print-color-adjust: exact !important;
+          background: #ffffff !important;
+          color: #000000 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        .no-print, header, nav, footer, .floating-chat-trigger, #floating-chat-widget { 
+          display: none !important; 
+        }
+        @page {
+          size: A4 portrait;
+          margin: 15mm 15mm 15mm 20mm;
+        }
+        .rpm-table {
+          width: 100% !important;
+          border-collapse: collapse !important;
+          page-break-inside: auto;
+        }
+        .rpm-table tr {
+          page-break-inside: avoid !important;
+          page-break-after: auto;
+        }
+        .rpm-table td, .rpm-table th {
+          border: 1px solid #000000 !important;
+          color: #000000 !important;
+        }
+        .rpm-table th {
+          background-color: #fcd5b4 !important;
+        }
+        .page-break-before-always, .break-before-page {
+          page-break-before: always !important;
+          break-before: page !important;
+        }
+        .break-inside-avoid, .avoid-break {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
       }
       
       .rpm-table {
@@ -64,17 +143,30 @@
         vertical-align: top;
       }
 
-      /* Smooth transitions for theme switching */
       body, div, input, select, textarea, span, h1, h2, h3, p, button {
         transition-property: background-color, border-color, color, fill, stroke;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 300ms;
       }
 
-      /* Fix for Select Options in Dark Mode */
       .dark option {
-        background-color: #1e293b; /* Slate 800 */
-        color: #f8fafc; /* Slate 50 */
+        background-color: #1e293b;
+        color: #f8fafc;
+      }
+      
+      /* Custom Scrollbar for nicer look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
       }
     </style>
   <script type="importmap">
